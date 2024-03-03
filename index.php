@@ -1,80 +1,93 @@
 <?php
 
-$stages = [1=>"
-  +---+
-  |   |
-      |
-      |
-      |
-      |
+$stage = [1=>"
++---+
+|   |
+|
+|
+|
+|
 =========",2=>"
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
++---+
+|   |
+|   O
+|
+|
+|
 =========",3=>"
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
++---+
+|   |
+|   O
+|   |
+|
+|
 =========",4=>"
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
++---+
+|   |
+|   O
+|  /|
+|
+|
 =========",5=>"
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
++---+
+|   |
+|   O
+|  /|\
+|
+|
 =========",6=>"
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
++---+
+|   |
+|   O
+|  /|\
+|  /
+|
 =========",7=>"
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
++---+
+|   |
+|   O
+|  /|\
+|  / \
+|
 ========="
 ];
 
-$guess = readline('Guess a letter: ');
+$attempt = 1;
+$word = str_split(getWord());
 
-$attempts = 0;
+echo "Welcome to Hangman \n";
+$guess = readline('Guess:');
+echo "\n";
+for ($x=0; $x<count($word); $x++) {
 
-checkUsrInput($guess,$stages,$attempts);
-
-// getWord();
-// echo getWord()."\n";
+	checkUsrInput($word,$guess,$stage,$attempt,$x);
+}
+echo "\n\n";
 
 function getWord() {
-  $words = ['Chocolate','Cheese','Test','Paper','Shark','Empire','Toss','Jumper','Pain ','Bottle','Pat','Love','Song','Back','Muscles','Sighing','Beast','Bed','Lie'];
+    $words = ['Chocolate','Cheese','Test','Paper','Shark','Empire','Toss','Jumper','Pain ','Bottle','Pat','Love','Song','Back','Muscles','Sighing','Beast','Bed','Lie'];
 
-  $ran = rand(0, count($words)-1);
-  return $words[$ran];
+    $ran = rand(0, count($words)-1);
+    // return $words[$ran];
+    return $words[1]; // cheese for testing
 }
 
-function checkUsrInput($guess,$stages,$attempts) {
-  # checks whether the letter inputted is in the word ramdomly chosen. If it is then it will print out the letters within the string. Otherwise, the stage will increment and the user will have to guess another letter
+function checkUsrInput($word,$guess,$stage,$attempt,$x) {
+    # checks whether the letter inputted is in the word ramdomly chosen. If it is then it will print out the letters within the string. Otherwise, the stage will increment and the user will have to guess another letter
+
+    if ($word[$x] == $guess) {
+        echo " ".$word[$x]." ";
+    }
+    else {
+        echo " _ ";
+        incrementStage($attempt);
+    }
 }
 
-function incrementStage($attempts) {
+function incrementStage() {
     # goes to the next stage of the game
-    $attempts++;
+    global $attempt;
+    $attempt++;
 
-    return $attempts;
+    return $attempt;
 }
