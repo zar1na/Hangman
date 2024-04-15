@@ -52,18 +52,23 @@ $stage = [1=>"
 ========="
 ];
 
-$attempt = 1;
-$word = str_split(getWord());
+$word = str_split(strtolower(getWord()));
 $prevguess = array();
 
 echo "Welcome to Hangman \n";
-for ($i=0;$i<count($stage); $i++) {
+echo "Your word to guess is.. \n";
+for ($i=0;$i<count($word);$i++) {
+    echo " _ ";
+}
+echo "\n\n";
 
-    $guess = readline('Guess:');
+for ($counter=1;$counter<count($stage); $counter++) {
+
+    $guess = strtolower(readline('Guess:'));
     echo "\n";
-    for ($x=0; $x<count($word); $x++) {
-        checkUsrInput($word,$guess,$stage,$attempt,$x);
-    }
+
+    checkUsrInput($word,$guess,$stage,$counter);
+
     echo "\n\n";
 }
 
@@ -77,19 +82,23 @@ function getWord() {
     return $words[1]; // cheese for testing purposes
 }
 
-function checkUsrInput($word,$guess,$stage,$attempt,$x) {
+function checkUsrInput($word,$guess,$stage,$counter) {
     # checks whether the letter inputted is in the word ramdomly chosen. If it is then it will print out the letters within the string. Otherwise, the stage will increment and the user will have to guess another letter
 
     global $prevguess;
-
-    if (in_array($word[$x], $prevguess) || $word[$x] == $guess) {
-        $prevguess[] .= $guess;
-        echo " ".$word[$x]." ";
-    }
-    else {
-        echo " _ ";
-        incrementStage($attempt);
-        // print_r($stage[$attempt])."\n";
+    
+    for ($x=0; $x<count($word); $x++) {
+        if (in_array($word[$x], $prevguess) || $word[$x] == $guess) {
+            if ($word[$x] == $guess) {
+                $prevguess[] .= $guess;
+            }
+            echo " ".$word[$x]." ";
+        }
+        else {
+            echo " _ ";
+            // incrementStage($attempt);
+            // print_r($stage[$attempt])."\n";
+        }
     }
 }
 
