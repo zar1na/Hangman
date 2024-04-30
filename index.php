@@ -83,7 +83,7 @@ while ($badattempts < count($stage)) {
 echo "Your word was... ".$word."\n\nRun the program to play again!\n";
 
 function getWord() {
-    $words = ['Chocolate','Cheese','Test','Paper','Shark','Empire','Toss','Jumper','Pain ','Bottle','Pat','Love','Song','Back','Muscles','Sighing','Beast','Bed','Lie'];
+    $words = ['Chocolate','Cheese','Test','Paper','Shark','Empire','Toss','Jumper','Pain','Bottle','Pat','Love','Song','Back','Muscles','Sighing','Beast','Bed','Lie'];
 
     $ran = rand(0, count($words)-1);
     return $words[$ran];
