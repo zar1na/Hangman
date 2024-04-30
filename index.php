@@ -86,7 +86,6 @@ function getWord() {
 
     $ran = rand(0, count($words)-1);
     return $words[$ran];
-    // return $words[1]; // cheese for testing purposes
 }
 
 function checkUsrInput($lowword,$guess,$stage,$counter) {
