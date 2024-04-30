@@ -62,14 +62,20 @@ for ($i=0;$i<count($word);$i++) {
 }
 echo "\n\n";
 
-for ($counter=1;$counter<count($stage); $counter++) {
+for ($counter=1;$counter<=count($stage); $counter++) {
 
-    $guess = strtolower(readline('Guess:'));
-    echo "\n";
+    if (count(array_unique($prevguess)) == count(array_unique($word))) {
+        echo "You won! \n\nRun the program to play again!\n";
+        exit;
+    }
+    else {
+        $guess = strtolower(readline('Guess:'));
+        echo "\n";
 
-    checkUsrInput($word,$guess,$stage,$counter);
+        checkUsrInput($word,$guess,$stage,$counter);
 
-    echo "\n\n";
+        echo "\n\n";
+    }
 }
 
 echo "Your word was... ".getWord()."\n\nRun the program to play again!\n";
@@ -96,16 +102,15 @@ function checkUsrInput($word,$guess,$stage,$counter) {
         }
         else {
             echo " _ ";
-            // incrementStage($attempt);
+            incrementStage($counter);
             // print_r($stage[$attempt])."\n";
         }
     }
 }
 
-function incrementStage() {
+function incrementStage($stage) {
     # goes to the next stage of the game
-    global $attempt;
-    $attempt++;
+    $stage++;
 
-    return $attempt;
+    return $stage;
 }
